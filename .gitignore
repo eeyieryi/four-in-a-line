@@ -1,0 +1,12 @@
+*
+
+!/.gitignore
+!/LICENSE
+!/README.md
+
+!/board
+!/board/board_test.go
+!/board/board.go
+!/go.mod
+!/go.sum
+!/main.go
