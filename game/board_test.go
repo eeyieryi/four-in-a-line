@@ -1,15 +1,15 @@
-package board_test
+package game_test
 
 import (
 	"reflect"
 	"testing"
 
-	"github.com/eeyieryi/four-in-a-row/board"
+	"github.com/eeyieryi/four-in-a-row/game"
 )
 
 func TestNewBoard(t *testing.T) {
 	t.Parallel()
-	want := board.Board{
+	want := game.Board{
 		{0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0},
@@ -17,7 +17,7 @@ func TestNewBoard(t *testing.T) {
 		{0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0},
 	}
-	got := board.NewBoard(nil)
+	got := game.NewBoard(nil)
 	if !reflect.DeepEqual(want, got) {
 		t.Errorf("want %v, got: %v", want, got)
 	}
@@ -27,13 +27,13 @@ func TestNewBoardWithState(t *testing.T) {
 	t.Parallel()
 
 	type testCase struct {
-		input board.Board
-		want  board.Board
+		input game.Board
+		want  game.Board
 	}
 
 	for _, tc := range []testCase{
 		{
-			input: board.Board{
+			input: game.Board{
 				{0, 0, 0, 0, 0, 0, 0},
 				{0, 0, 0, 0, 2, 0, 0},
 				{0, 0, 0, 0, 1, 0, 0},
@@ -41,7 +41,7 @@ func TestNewBoardWithState(t *testing.T) {
 				{0, 0, 0, 0, 1, 0, 0},
 				{0, 1, 2, 1, 2, 0, 0},
 			},
-			want: board.Board{
+			want: game.Board{
 				{0, 0, 0, 0, 0, 0, 0},
 				{0, 0, 0, 0, 2, 0, 0},
 				{0, 0, 0, 0, 1, 0, 0},
@@ -51,7 +51,7 @@ func TestNewBoardWithState(t *testing.T) {
 			},
 		},
 		{
-			input: board.Board{
+			input: game.Board{
 				{0, 0, 0, 0, 0, 0, 0},
 				{0, 0, 0, 0, 2, 0, 0},
 				{0, 0, 0, 0, 1, 0, 0},
@@ -59,7 +59,7 @@ func TestNewBoardWithState(t *testing.T) {
 				{0, 0, 0, 0, 1, 0, 0},
 				{0, 1, 2, 1, 2, 0, 1},
 			},
-			want: board.Board{
+			want: game.Board{
 				{0, 0, 0, 0, 0, 0, 0},
 				{0, 0, 0, 0, 2, 0, 0},
 				{0, 0, 0, 0, 1, 0, 0},
@@ -69,7 +69,7 @@ func TestNewBoardWithState(t *testing.T) {
 			},
 		},
 	} {
-		got := board.NewBoard(tc.input)
+		got := game.NewBoard(tc.input)
 		if !reflect.DeepEqual(tc.want, got) {
 			t.Errorf("want %v, got: %v", tc.want, got)
 		}
@@ -80,20 +80,20 @@ func TestAddPiece(t *testing.T) {
 	t.Parallel()
 
 	type input struct {
-		state  board.Board
+		state  game.Board
 		player int
 		column int
 	}
 
 	type testCase struct {
 		input input
-		want  board.Board
+		want  game.Board
 	}
 
 	for _, tc := range []testCase{
 		{
 			input: input{
-				state: board.Board{
+				state: game.Board{
 					{0, 0, 0, 0, 0, 0, 0},
 					{0, 0, 0, 0, 0, 0, 0},
 					{0, 0, 0, 0, 0, 0, 0},
@@ -104,7 +104,7 @@ func TestAddPiece(t *testing.T) {
 				player: 1,
 				column: 5,
 			},
-			want: board.Board{
+			want: game.Board{
 				{0, 0, 0, 0, 0, 0, 0},
 				{0, 0, 0, 0, 0, 0, 0},
 				{0, 0, 0, 0, 0, 0, 0},
@@ -115,7 +115,7 @@ func TestAddPiece(t *testing.T) {
 		},
 		{
 			input: input{
-				state: board.Board{
+				state: game.Board{
 					{0, 0, 0, 0, 0, 0, 0},
 					{0, 0, 0, 0, 0, 0, 0},
 					{0, 0, 0, 0, 0, 0, 0},
@@ -126,7 +126,7 @@ func TestAddPiece(t *testing.T) {
 				player: 2,
 				column: 4,
 			},
-			want: board.Board{
+			want: game.Board{
 				{0, 0, 0, 0, 0, 0, 0},
 				{0, 0, 0, 0, 0, 0, 0},
 				{0, 0, 0, 0, 0, 0, 0},
@@ -136,7 +136,7 @@ func TestAddPiece(t *testing.T) {
 			},
 		},
 	} {
-		got := board.AddPiece(tc.input.state, tc.input.player, tc.input.column)
+		got := game.AddPiece(tc.input.state, tc.input.player, tc.input.column)
 		if !reflect.DeepEqual(tc.want, got) {
 			t.Errorf("want %v, got: %v", tc.want, got)
 		}
@@ -147,7 +147,7 @@ func TestCheckValidMove(t *testing.T) {
 	t.Parallel()
 
 	type input struct {
-		state  board.Board
+		state  game.Board
 		player int
 		column int
 	}
@@ -159,7 +159,7 @@ func TestCheckValidMove(t *testing.T) {
 	for _, tc := range []testCase{
 		{
 			input: input{
-				state: board.Board{
+				state: game.Board{
 					{0, 0, 0, 0, 0, 0, 0},
 					{0, 0, 0, 0, 0, 0, 0},
 					{0, 0, 0, 0, 0, 0, 0},
@@ -170,10 +170,9 @@ func TestCheckValidMove(t *testing.T) {
 				player: 1,
 				column: 5,
 			},
-			// TODO: Add more cases
 		},
 	} {
-		valid := board.IsValidMove(tc.input.state, tc.input.player, tc.input.column)
+		valid := game.IsValidMove(tc.input.state, tc.input.player, tc.input.column)
 		if !valid {
 			t.Errorf("want valid, got invalid")
 		}
@@ -185,7 +184,7 @@ func TestCheckValidMoveInvalid(t *testing.T) {
 	t.Parallel()
 
 	type input struct {
-		state  board.Board
+		state  game.Board
 		player int
 		column int
 	}
@@ -197,7 +196,7 @@ func TestCheckValidMoveInvalid(t *testing.T) {
 	for _, tc := range []testCase{
 		{
 			input: input{
-				state: board.Board{
+				state: game.Board{
 					{0, 0, 0, 1, 0, 0, 0},
 					{0, 0, 0, 2, 0, 0, 0},
 					{0, 0, 0, 1, 0, 0, 0},
@@ -208,10 +207,9 @@ func TestCheckValidMoveInvalid(t *testing.T) {
 				player: 2,
 				column: 4,
 			},
-			// TODO: Add more cases
 		},
 	} {
-		valid := board.IsValidMove(tc.input.state, tc.input.player, tc.input.column)
+		valid := game.IsValidMove(tc.input.state, tc.input.player, tc.input.column)
 		if valid {
 			t.Errorf("want invalid, got valid")
 		}
@@ -223,18 +221,18 @@ func TestCheckBoardState(t *testing.T) {
 	t.Parallel()
 
 	type input struct {
-		state board.Board
+		state game.Board
 	}
 
 	type testCase struct {
 		input input
-		want  int
+		want  game.BoardState
 	}
 
 	for _, tc := range []testCase{
 		{
 			input: input{
-				state: board.Board{
+				state: game.Board{
 					{0, 0, 0, 1, 0, 0, 0},
 					{0, 0, 0, 2, 0, 0, 0},
 					{0, 1, 2, 1, 0, 0, 0},
@@ -247,7 +245,7 @@ func TestCheckBoardState(t *testing.T) {
 		},
 		{
 			input: input{
-				state: board.Board{
+				state: game.Board{
 					{0, 0, 0, 1, 0, 0, 0},
 					{0, 0, 0, 2, 0, 0, 0},
 					{0, 0, 2, 1, 0, 0, 0},
@@ -260,7 +258,7 @@ func TestCheckBoardState(t *testing.T) {
 		},
 		{
 			input: input{
-				state: board.Board{
+				state: game.Board{
 					{0, 0, 0, 1, 0, 0, 0},
 					{0, 0, 1, 2, 0, 0, 0},
 					{0, 0, 2, 1, 0, 0, 0},
@@ -273,7 +271,7 @@ func TestCheckBoardState(t *testing.T) {
 		},
 		{
 			input: input{
-				state: board.Board{
+				state: game.Board{
 					{1, 1, 2, 1, 1, 2, 1},
 					{2, 2, 1, 2, 2, 1, 1},
 					{1, 2, 2, 1, 1, 2, 2},
@@ -286,7 +284,7 @@ func TestCheckBoardState(t *testing.T) {
 		},
 		{
 			input: input{
-				state: board.Board{
+				state: game.Board{
 					{0, 0, 0, 0, 0, 0, 0},
 					{1, 1, 1, 1, 0, 0, 0},
 					{2, 1, 2, 2, 0, 0, 0},
@@ -299,7 +297,7 @@ func TestCheckBoardState(t *testing.T) {
 		},
 		{
 			input: input{
-				state: board.Board{
+				state: game.Board{
 					{0, 0, 0, 0, 0, 0, 0},
 					{0, 0, 0, 0, 0, 0, 0},
 					{1, 1, 2, 2, 2, 2, 0},
@@ -311,7 +309,7 @@ func TestCheckBoardState(t *testing.T) {
 			want: 2,
 		},
 	} {
-		got := board.GetBoardState(tc.input.state)
+		got, _ := game.GetBoardState(tc.input.state)
 		if tc.want != got {
 			t.Errorf("want %d, got %d", tc.want, got)
 		}

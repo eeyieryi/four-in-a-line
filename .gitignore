@@ -1,12 +1,17 @@
 *
 
+!/game
+!/game/*.go
+
+!/go.mod
+!/go.sum
+!/main.go
+
 !/.gitignore
 !/LICENSE
 !/README.md
 
-!/board
-!/board/board_test.go
-!/board/board.go
-!/go.mod
-!/go.sum
-!/main.go
+!/assets
+!/assets/fonts
+!/assets/fonts/LICENSE.md
+!/assets/fonts/*.ttf

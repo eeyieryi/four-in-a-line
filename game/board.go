@@ -1,4 +1,4 @@
-package board
+package game
 
 import (
 	"reflect"
@@ -9,6 +9,25 @@ type Board [][]int
 const (
 	ROWS_MAX    = 6
 	COLUMNS_MAX = 7
+)
+
+const (
+	PlayerOne = 1
+	PlayerTwo = 2
+)
+
+type BoardState int
+
+type Piece struct {
+	row int
+	col int
+}
+
+const (
+	DrawState         BoardState = -1
+	OngoingState      BoardState = 0
+	PlayerOneWinState BoardState = 1
+	PlayerTwoWinState BoardState = 2
 )
 
 func emptyBoard() Board {
@@ -58,9 +77,12 @@ func IsValidMove(state Board, player int, column int) bool {
 	return !reflect.DeepEqual(state, newState)
 }
 
-func GetBoardState(board Board) int {
+func GetBoardState(board Board) (BoardState, []Piece) {
 	found := false
+
 	winner := 0
+	winningPieces := make([]Piece, 4)
+
 	for i := ROWS_MAX - 1; i >= 0; i-- {
 		if found {
 			break
@@ -74,6 +96,13 @@ func GetBoardState(board Board) int {
 					if board[i-1][j] == value &&
 						board[i-2][j] == value &&
 						board[i-3][j] == value {
+
+						a := Piece{i, j}
+						b := Piece{i - 1, j}
+						c := Piece{i - 2, j}
+						d := Piece{i - 3, j}
+						winningPieces = []Piece{a, b, c, d}
+
 						winner = value
 						found = true
 						break
@@ -82,6 +111,13 @@ func GetBoardState(board Board) int {
 						if board[i-1][j+1] == value &&
 							board[i-2][j+2] == value &&
 							board[i-3][j+3] == value {
+
+							a := Piece{i, j}
+							b := Piece{i - 1, j + 1}
+							c := Piece{i - 2, j + 2}
+							d := Piece{i - 3, j + 3}
+							winningPieces = []Piece{a, b, c, d}
+
 							winner = value
 							found = true
 							break
@@ -91,6 +127,13 @@ func GetBoardState(board Board) int {
 						if board[i-1][j-1] == value &&
 							board[i-2][j-2] == value &&
 							board[i-3][j-3] == value {
+
+							a := Piece{i, j}
+							b := Piece{i - 1, j - 1}
+							c := Piece{i - 2, j - 2}
+							d := Piece{i - 3, j - 3}
+							winningPieces = []Piece{a, b, c, d}
+
 							winner = value
 							found = true
 							break
@@ -101,6 +144,13 @@ func GetBoardState(board Board) int {
 					if board[i][j+1] == value &&
 						board[i][j+2] == value &&
 						board[i][j+3] == value {
+
+						a := Piece{i, j}
+						b := Piece{i, j + 1}
+						c := Piece{i, j + 2}
+						d := Piece{i, j + 3}
+						winningPieces = []Piece{a, b, c, d}
+
 						winner = value
 						found = true
 						break
@@ -126,9 +176,9 @@ func GetBoardState(board Board) int {
 		}
 
 		if !emptyCell {
-			return -1
+			return -1, nil
 		}
 	}
 
-	return winner
+	return BoardState(winner), winningPieces
 }

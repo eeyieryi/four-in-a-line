@@ -2,7 +2,7 @@
 
 This is a simple four in a row game.
 
-Using ebitenengine [https://github.com/hajimehoshi/ebiten](https://github.com/hajimehoshi/ebiten)
+Made with [ebitenengine](https://github.com/hajimehoshi/ebiten)
 
 ## How to run
 
