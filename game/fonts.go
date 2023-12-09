@@ -1,9 +1,7 @@
 package game
 
 import (
-	"os"
-	"path"
-
+	"github.com/eeyieryi/four-in-a-row/assets/fonts"
 	"golang.org/x/image/font"
 	"golang.org/x/image/font/opentype"
 )
@@ -17,12 +15,7 @@ var (
 func setupFonts() {
 	var err error
 
-	ttf, err := os.ReadFile(path.Join("assets", "fonts", "m5x7.ttf"))
-	if err != nil {
-		panic(err)
-	}
-
-	tt, err := opentype.Parse(ttf)
+	tt, err := opentype.Parse(fonts.F_m5x7_ttf)
 	if err != nil {
 		panic(err)
 	}

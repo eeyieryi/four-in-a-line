@@ -14,4 +14,5 @@
 !/assets
 !/assets/fonts
 !/assets/fonts/LICENSE.md
+!/assets/fonts/*.go
 !/assets/fonts/*.ttf
