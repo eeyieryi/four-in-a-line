@@ -10,6 +10,8 @@
 !/.gitignore
 !/LICENSE
 !/README.md
+!/screenshots
+!/screenshots/*.png
 
 !/assets
 !/assets/fonts
