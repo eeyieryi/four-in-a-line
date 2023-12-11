@@ -6,9 +6,15 @@ Made with [ebitenengine](https://github.com/hajimehoshi/ebiten)
 
 ## How to run
 
+### Locally on your computer
+
 ```sh
 go run github.com/eeyieryi/four-in-a-row@latest
 ```
+
+### On your browser
+
+Access the website at [eeyieryi.github.io/four-in-a-row](https://eeyieryi.github.io/four-in-a-row/)
 
 ## Screenshots
 
