@@ -2,7 +2,7 @@
 
 This is a simple four in a row game.
 
-Made with [ebitenengine](https://github.com/hajimehoshi/ebiten)
+Made with [ebitenengine](https://github.com/hajimehoshi/ebiten).
 
 ## How to run
 
@@ -12,12 +12,13 @@ Made with [ebitenengine](https://github.com/hajimehoshi/ebiten)
 go run github.com/eeyieryi/four-in-a-row@latest
 ```
 
-### On your browser
+### On the browser
 
-Access the website at [eeyieryi.github.io/four-in-a-row](https://eeyieryi.github.io/four-in-a-row/)
+Available at [eeyieryi.itch.io/four-in-a-row](https://eeyieryi.itch.io/four-in-a-row).
 
 ## Screenshots
 
+![Playing!](/screenshots/cover.png?raw=true "Playing!")
 ![Player One Win!](/screenshots/player1_win.png?raw=true "Player One Win!")
 ![Player Two Win!](/screenshots/player2_win.png?raw=true "Player Two Win!")
 ![Draw!](/screenshots/draw.png?raw=true "Draw!")
