@@ -7,6 +7,15 @@ import (
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
 )
 
+func someKeysJustPressed(keys ...ebiten.Key) bool {
+	for _, k := range keys {
+		if inpututil.IsKeyJustPressed(k) {
+			return true
+		}
+	}
+	return false
+}
+
 func handleInput(g *Game) error {
 	// if ebiten.IsKeyPressed(ebiten.KeyQ) {
 	// 	return ErrTerminated
@@ -14,17 +23,17 @@ func handleInput(g *Game) error {
 
 	switch g.currentScene {
 	case PlayingScene:
-		if inpututil.IsKeyJustPressed(ebiten.KeyLeft) {
+		if someKeysJustPressed(ebiten.KeyArrowLeft, ebiten.KeyA, ebiten.KeyH) {
 			if g.selectedColumn-1 > 0 {
 				g.selectedColumn -= 1
 			}
-		} else if inpututil.IsKeyJustPressed(ebiten.KeyRight) {
+		} else if someKeysJustPressed(ebiten.KeyArrowRight, ebiten.KeyD, ebiten.KeyL) {
 			if g.selectedColumn+1 <= COLUMNS_MAX {
 				g.selectedColumn += 1
 			}
 		}
 
-		if inpututil.IsKeyJustPressed(ebiten.KeySpace) {
+		if someKeysJustPressed(ebiten.KeySpace) {
 			valid := IsValidMove(*g.State.Board, g.State.NextToPlay, g.selectedColumn)
 			if !valid {
 				log.Printf("Not a valid move! Player (%d) at Column (%d)", g.State.NextToPlay, g.selectedColumn)
@@ -50,7 +59,7 @@ func handleInput(g *Game) error {
 			}
 		}
 	case GameOverScene:
-		if inpututil.IsKeyJustPressed(ebiten.KeySpace) {
+		if someKeysJustPressed(ebiten.KeySpace) {
 			g.StartGame()
 		}
 	}
