@@ -8,9 +8,9 @@ import (
 )
 
 func handleInput(g *Game) error {
-	if ebiten.IsKeyPressed(ebiten.KeyQ) {
-		return ErrTerminated
-	}
+	// if ebiten.IsKeyPressed(ebiten.KeyQ) {
+	// 	return ErrTerminated
+	// }
 
 	switch g.currentScene {
 	case PlayingScene:
