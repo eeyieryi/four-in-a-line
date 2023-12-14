@@ -18,3 +18,7 @@
 !/assets/fonts/LICENSE.md
 !/assets/fonts/*.go
 !/assets/fonts/*.ttf
+
+!/wasm-build.sh
+!/wasm
+!/wasm/index.html
